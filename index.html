@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery System - Submit Details</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #eef2ff;
+            --success: #10b981;
+            --error: #ef4444;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --border: #e5e7eb;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e0f2fe 100%);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 50px 40px;
+            box-shadow: var(--shadow-lg);
+            animation: fadeInScale 0.6s ease-out 0.1s both;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .header {
+            margin-bottom: 35px;
+            animation: fadeInDown 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 0.95em;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .form-group:nth-of-type(1) { animation-delay: 0.3s; }
+        .form-group:nth-of-type(2) { animation-delay: 0.4s; }
+        .form-group:nth-of-type(3) { animation-delay: 0.5s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        label {
+            display: block;
+            font-size: 0.95em;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1em;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background-color: #fafbfc;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            font-family: inherit;
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus {
+            border-color: var(--primary);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            padding: 8px 16px;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .error-message {
+            font-size: 0.85em;
+            color: var(--error);
+            margin-top: 6px;
+            display: none;
+            animation: shake 0.3s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        input.input-error {
+            border-color: var(--error);
+            background-color: rgba(239, 68, 68, 0.05);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 35px;
+            animation: fadeInUp 0.6s ease-out 0.6s both;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px 24px;
+            font-size: 1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #submitBtn {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        #submitBtn:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        #submitBtn:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        #submitBtn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #resetBtn {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid var(--border);
+        }
+
+        #resetBtn:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        #resetBtn:active {
+            transform: translateY(0);
+        }
+
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+
+        .success-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-content {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            max-width: 400px;
+            animation: popIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotateX(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateX(0deg);
+            }
+        }
+
+        .checkmark {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .checkmark::after {
+            content: '✓';
+            font-size: 3.5em;
+            color: var(--primary);
+            font-weight: 700;
+            animation: checkStroke 0.3s ease 0.3s backwards;
+        }
+
+        @keyframes checkStroke {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .success-content h2 {
+            font-size: 1.8em;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .success-content p {
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .close-btn {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            padding: 12px 30px;
+            font-size: 0.95em;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .close-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .admin-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            z-index: 999;
+        }
+
+        .admin-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .dashboard {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dashboard h2 {
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .dashboard p {
+            margin: 15px 0;
+            color: var(--text-light);
+            font-size: 1.1em;
+        }
+
+        .dashboard button {
+            margin: 10px 5px;
+            padding: 10px 20px;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 40px 24px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                padding: 12px 20px;
+                font-size: 0.95em;
+            }
+
+            .success-content {
+                padding: 40px 24px;
+            }
+
+            .checkmark {
+                width: 70px;
+                height: 70px;
+            }
+
+            .checkmark::after {
+                font-size: 2.5em;
+            }
+
+            .success-content h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="admin-btn" onclick="showAdminPanel()">🔐 Admin</button>
+
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>🎰 Lottery System</h1>
+                <p class="subtitle">Please fill in all the fields below</p>
+            </div>
+
+            <form id="detailsForm">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+                    <div class="error-message" id="nameError">Please enter your name</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9\-\+\(\)\s]*" required />
+                    <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo">Upload Photo</label>
+                    <input type="file" id="photo" name="photo" accept="image/*" required />
+                    <div class="error-message" id="photoError">Please upload a photo</div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" id="submitBtn">Submit</button>
+                    <button type="reset" id="resetBtn">Clear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="checkmark"></div>
+            <h2>Success!</h2>
+            <p>Your details have been submitted successfully!</p>
+            <button class="close-btn" onclick="closeSuccessModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let participants = [];
+        const ADMIN_EMAIL = 'Lottery1122@gmail.com';
+        const ADMIN_PASSWORD = 'Lottery9966#';
+
+        const form = document.getElementById('detailsForm');
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const photoInput = document.getElementById('photo');
+        const successModal = document.getElementById('successModal');
+        const container = document.querySelector('.container');
+
+        function loadData() {
+            const stored = localStorage.getItem('lottery_data');
+            if (stored) {
+                participants = JSON.parse(stored);
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('lottery_data', JSON.stringify(participants));
+        }
+
+        function validateForm() {
+            let isValid = true;
+            clearErrors();
+
+            if (nameInput.value.trim() === '') {
+                showError('nameError', 'name');
+                isValid = false;
+            }
+
+            if (phoneInput.value.trim() === '') {
+                showError('phoneError', 'phone');
+                isValid = false;
+            } else if (!/^[0-9\-\+\(\)\s]+$/.test(phoneInput.value)) {
+                document.getElementById('phoneError').textContent = 'Please enter a valid phone number';
+                showError('phoneError', 'phone');
+                isValid = false;
+            }
+
+            if (photoInput.files.length === 0) {
+                showError('photoError', 'photo');
+                isValid = false;
+            } else {
+                const file = photoInput.files[0];
+                if (!file.type.startsWith('image/')) {
+                    document.getElementById('photoError').textContent = 'Please upload an image file';
+                    showError('photoError', 'photo');
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        }
+
+        function showError(errorId, inputId) {
+            document.getElementById(errorId).classList.add('show');
+            document.getElementById(inputId).classList.add('input-error');
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.error-message').forEach(el => {
+                el.classList.remove('show');
+            });
+            document.querySelectorAll('input').forEach(el => {
+                el.classList.remove('input-error');
+            });
+        }
+
+        function showSuccessModal() {
+            successModal.classList.add('show');
+        }
+
+        function closeSuccessModal() {
+            successModal.classList.remove('show');
+            form.reset();
+            clearErrors();
+        }
+
+        function showAdminPanel() {
+            const email = prompt('Enter admin email:');
+            if (email !== ADMIN_EMAIL) {
+                alert('Invalid email!');
+                return;
+            }
+
+            const password = prompt('Enter admin password:');
+            if (password !== ADMIN_PASSWORD) {
+                alert('Invalid password!');
+                return;
+            }
+
+            loadData();
+            showAdminDashboard();
+        }
+
+        function showAdminDashboard() {
+            const dashHTML = `
+                <div class="dashboard">
+                    <h2>🎰 Admin Dashboard</h2>
+                    <p>Total Participants: <strong>${participants.length}</strong></p>
+                    <p>Remaining Spots: <strong>${10000 - participants.length}</strong></p>
+                    <hr style="margin: 20px 0;">
+                    <h3 style="margin-top: 20px;">Participants List:</h3>
+                    <div style="text-align: left; margin: 20px 0; max-height: 300px; overflow-y: auto; background: #f9fafb; padding: 15px; border-radius: 8px;">
+                        ${participants.length === 0 ? '<p>No participants yet</p>' : participants.map((p, i) => `<p>${i + 1}. ${p.name} (${p.phone})</p>`).join('')}
+                    </div>
+                    <button onclick="runLottery()" style="background: var(--success);">🎯 Run Lottery</button>
+                    <button onclick="downloadExcel()" style="background: #f59e0b;">📥 Download Excel</button>
+                    <button onclick="location.reload()" style="background: var(--error);">🚪 Logout</button>
+                </div>
+            `;
+            container.innerHTML = dashHTML;
+        }
+
+        function runLottery() {
+            if (participants.length === 0) {
+                alert('No participants!');
+                return;
+            }
+
+            const winner = participants[Math.floor(Math.random() * participants.length)];
+            alert(`🏆 WINNER!\n\nName: ${winner.name}\nPhone: ${winner.phone}\nSerial: ${winner.serial}\n\nAnnounce on Instagram! 📱`);
+        }
+
+        function downloadExcel() {
+            if (participants.length === 0) {
+                alert('No data to download!');
+                return;
+            }
+
+            let csv = 'Serial No,Name,Phone,Timestamp\n';
+            participants.forEach((p, index) => {
+                csv += `${index + 1},"${p.name}","${p.phone}","${p.timestamp}"\n`;
+            });
+
+            const link = document.createElement('a');
+            link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+            link.download = 'lottery_participants.csv';
+            link.click();
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            if (validateForm()) {
+                const participant = {
+                    serial: participants.length + 1,
+                    name: nameInput.value,
+                    phone: phoneInput.value,
+                    timestamp: new Date().toLocaleString()
+                };
+
+                participants.push(participant);
+                saveData();
+                showSuccessModal();
+            }
+        });
+
+        nameInput.addEventListener('input', () => {
+            if (nameInput.value.trim() !== '') {
+                nameInput.classList.remove('input-error');
+                document.getElementById('nameError').classList.remove('show');
+            }
+        });
+
+        phoneInput.addEventListener('input', () => {
+            if (phoneInput.value.trim() !== '') {
+                phoneInput.classList.remove('input-error');
+                document.getElementById('phoneError').classList.remove('show');
+            }
+        });
+
+        photoInput.addEventListener('change', () => {
+            if (photoInput.files.length > 0) {
+                photoInput.classList.remove('input-error');
+                document.getElementById('photoError').classList.remove('show');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && successModal.classList.contains('show')) {
+                closeSuccessModal();
+            }
+        });
+
+        loadData();
+    </script>
+</body>
+</html>
